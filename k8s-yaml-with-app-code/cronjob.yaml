@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: dummy-app-cronjob
+  namespace: dummy
+
+spec:
+  schedule: "*/5 * * * *"
+
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: dummy-cron
+
+        spec:
+          containers:
+          - name: dummy-cron-container
+            image: shubham12gupta/dummy-k8s-app
+
+          restartPolicy: OnFailure

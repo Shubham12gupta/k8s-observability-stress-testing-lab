@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: dummy-app-daemonset
+  namespace: dummy
+
+spec:
+  selector:
+    matchLabels:
+      app: dummy-app-daemon
+
+  template:
+    metadata:
+      labels:
+        app: dummy-app-daemon
+
+    spec:
+      containers:
+      - name: dummy-k8s-container
+        image: shubham12gupta/dummy-k8s-app
+        ports:
+        - containerPort: 5000

@@ -18,7 +18,9 @@ It includes:
 * Logging (Loki + Alloy)
 * Stress Testing
 * Multiple Kubernetes workloads
+
 ---
+
 ## 🏗️ Architecture
 
 <p align="center">
@@ -61,13 +63,35 @@ It includes:
 
 ## 🎯 Use Cases
 
-* 📊 Monitoring Kubernetes clusters using Prometheus & Grafana
-* 📜 Centralized logging with Loki & Alloy
-* 🚀 Stress testing applications
-* 📈 Validating auto-scaling (HPA)
-* 🔍 Debugging real-world infra issues
-* 🧪 Testing different Kubernetes workloads
-* 🌐 Understanding networking & firewall behavior
+* Monitoring Kubernetes clusters
+* Centralized logging
+* Stress testing applications
+* Auto-scaling validation
+* Debugging real-world issues
+
+---
+
+## 📊 Grafana Dashboard
+
+<p align="center">
+  <img src="assets/grafana-dashboard (2).png" width="80%"/>
+</p>
+
+---
+
+## 📈 Prometheus Metrics (CPU Usage)
+
+<p align="center">
+  <img src="assets/Screenshot 2026-03-10 124002.png" width="80%"/>
+</p>
+
+---
+
+## 🧪 Stress Testing (K6)
+
+<p align="center">
+  <img src="assets/K6_stress_test.png" width="80%"/>
+</p>
 
 ---
 
@@ -75,7 +99,7 @@ It includes:
 
 ### 1️⃣ Create Cluster
 
-```bash
+```bash id="g7f2xk"
 kind create cluster
 ```
 
@@ -83,7 +107,7 @@ kind create cluster
 
 ### 2️⃣ Add Helm Repos
 
-```bash
+```bash id="p2k9zc"
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
@@ -93,7 +117,7 @@ helm repo update
 
 ### 3️⃣ Create Namespace
 
-```bash
+```bash id="n4w8ts"
 kubectl create namespace monitoring
 ```
 
@@ -101,7 +125,7 @@ kubectl create namespace monitoring
 
 ### 4️⃣ Install Prometheus + Grafana
 
-```bash
+```bash id="h9q3bz"
 helm install monitoring prometheus-community/kube-prometheus-stack -n monitoring
 ```
 
@@ -109,7 +133,7 @@ helm install monitoring prometheus-community/kube-prometheus-stack -n monitoring
 
 ### 5️⃣ Install Loki
 
-```bash
+```bash id="4q2jzn"
 helm install loki grafana/loki -n monitoring
 ```
 
@@ -117,7 +141,7 @@ helm install loki grafana/loki -n monitoring
 
 ### 6️⃣ Install Alloy
 
-```bash
+```bash id="h2v7xp"
 helm install alloy grafana/alloy -n monitoring
 ```
 
@@ -125,87 +149,34 @@ helm install alloy grafana/alloy -n monitoring
 
 ### 7️⃣ Access Grafana
 
-```bash
+```bash id="y3m8cv"
 kubectl port-forward svc/monitoring-grafana -n monitoring 3000:80
 ```
 
 ---
 
-## 📊 Grafana Dashboard
-
-<p align="center">
-  <img src="assets/grafana-dashboard.png" width="80%"/>
-</p>
-
----
-
-## 📈 Prometheus Metrics
-
-<p align="center">
-  <img src="assets/prometheus-metrics.png" width="80%"/>
-</p>
-
----
-
-## 📜 Loki Logs
-
-<p align="center">
-  <img src="assets/loki-logs.png" width="80%"/>
-</p>
-
----
-
-## 🧪 Stress Testing
-
-```bash
-node stress-test.js
-```
-
-<p align="center">
-  <img src="assets/stress-test.gif" width="80%"/>
-</p>
-
----
-
-## 🔄 Auto Scaling (HPA)
-
-<p align="center">
-  <img src="assets/hpa-scaling.png" width="80%"/>
-</p>
-
----
-
 ## 🐞 Issues Faced & Fixes
 
-### ❌ Services not accessible
+### ❌ Service not accessible
 
-* Cause: KIND runs inside Docker
-* Fix: Port forwarding + firewall rules
+* Fixed using port forwarding + firewall rules
 
-### ❌ Logs not appearing in Grafana
+### ❌ Logs not showing
 
-* Cause: Alloy missing access to container logs
-* Fix: Added proper mounts
+* Fixed Alloy configuration
 
 ### ❌ Metrics not available
 
-* Cause: Metrics server misconfiguration
-* Fix: Updated configuration
-
-### ❌ Promtail CrashLoopBackOff
-
-* Cause: Resource/file limits
-* Fix: Switched to Alloy
+* Fixed metrics-server
 
 ---
 
 ## 📚 Learnings
 
-* Kubernetes networking (NodePort, port-forward)
-* Observability pipeline (Metrics + Logs)
-* Debugging Docker + Kubernetes + Cloud
-* Scaling applications using HPA
-* Real-world DevOps troubleshooting
+* Kubernetes networking
+* Observability pipeline
+* Debugging real-world issues
+* Auto scaling with HPA
 
 ---
 
@@ -213,11 +184,11 @@ node stress-test.js
 
 * Add Jaeger (Tracing)
 * Add EFK stack
-* Setup Alertmanager
-* Add CI/CD pipeline
+* Setup alerts
 
 ---
 
 ## 🤝 Conclusion
 
-This project demonstrates a **real-world observability pipeline** with monitoring, logging, scaling, and debugging across multiple layers of infrastructure.
+This project demonstrates a real-world **DevOps observability pipeline** with monitoring, logging, stress testing, and debugging.
+
